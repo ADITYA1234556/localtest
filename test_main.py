@@ -6,12 +6,20 @@ from main import app, db, Task
 def client():
     # Set the app's testing configuration
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'  # Use an in-memory SQLite database for tests
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['TESTING'] = True
-    with app.app_context():  # Create an application context
-        db.create_all()  # Create the tables in the test database
-        with app.test_client() as client:
-            yield client
+    # Set up the test database (creating tables)
+    with app.app_context():
+        db.create_all()
+
+    # Create a test client to interact with the app
+    with app.test_client() as client:
+        yield client
+
+    # Clean up the test database after tests
+    with app.app_context():
         db.session.remove()
+        db.drop_all()
 # Test GET /tasks endpoint without hitting the real database
 def test_get_tasks(client, mocker):
     # Add tasks to the in-memory database before the test
@@ -26,10 +34,9 @@ def test_get_tasks(client, mocker):
 
     # Check the response
     assert response.status_code == 200
-    tasks = response.json['tasks']
-    assert len(tasks) == 2
-    assert tasks[0]['title'] == 'New Task 1'
-    assert tasks[1]['done'] is True
+    # Check if the tasks are returned in the response (you may need to adapt this based on your HTML response)
+    assert b"New Task 1" in response.data
+    assert b"New Task 2" in response.data
 
 # Test PUT /tasks/<task_id> endpoint (Update Task)
 def test_update_task(client):
@@ -45,21 +52,15 @@ def test_update_task(client):
     }
 
     # Perform the PUT request to update the task with ID 1
-    response = client.put(f'/tasks/{task.id}', json=updated_task_data)
+    response = client.post(f'/tasks/{task.id}', json=updated_task_data)
 
     # Check the response
-    assert response.status_code == 200
-    assert response.json['message'] == 'Task updated'
-    updated_task = response.json['task']
-    assert updated_task['title'] == 'Updated Task'
-    assert updated_task['description'] == 'Updated description'
-    assert updated_task['done'] is True
+    assert response.status_code == 302  # Redirect to home page after update
+    updated_task = Task.query.get(task.id)
+    assert updated_task.title == 'Updated Task'
+    assert updated_task.description == 'Updated description'
+    assert updated_task.done is True
 
-    # Verify the task was actually updated in the database
-    updated_task_in_db = Task.query.get(task.id)
-    assert updated_task_in_db.title == 'Updated Task'
-    assert updated_task_in_db.description == 'Updated description'
-    assert updated_task_in_db.done is True
 
 # Test DELETE /tasks/<task_id> endpoint (Delete Task)
 def test_delete_task(client):
@@ -72,9 +73,8 @@ def test_delete_task(client):
     response = client.delete(f'/tasks/{task.id}')
 
     # Check the response
-    assert response.status_code == 200
-    assert response.json['message'] == 'Task deleted'
-
+    assert response.status_code == 302  # Should redirect to the home page
     # Verify the task was actually deleted from the database
     deleted_task = Task.query.get(task.id)
-    assert deleted_task is None  # Task should no longer exist in the databaseimport pytest
+    assert deleted_task is None  # Task should no longer exist in the database
+
