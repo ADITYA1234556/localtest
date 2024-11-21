@@ -27,30 +27,25 @@ class Task(db.Model):
 with app.app_context():
     db.create_all()
 
-
 @app.route('/', methods=['GET'])
 def home():
     tasks = Task.query.all()
     return render_template("index.html", tasks=tasks)
+
 # CREATE task
 @app.route('/tasks', methods=['GET','POST'])
 def create_task():
     if request.method == "POST":
         title = request.form.get("title")
         description = request.form.get("description")
+        done = request.form.get("done")
         if not title:
             return render_template("task_form.html", error = "Title is required")
-        new_task = Task(title=title, description=description)
+        new_task = Task(title=title, description=description, done=done)
         db.session.add(new_task)
         db.session.commit()
         return redirect(url_for('home'))
     return render_template("task_form.html")
-
-# READ all tasks
-@app.route('/tasks')
-def get_tasks():
-    tasks = Task.query.all()
-    return render_template("index.html", tasks=tasks)
 
 # READ single task
 @app.route('/tasks/<int:task_id>')
