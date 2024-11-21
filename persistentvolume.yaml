@@ -4,12 +4,12 @@ metadata:
   name: mysql-pv
 spec:
   capacity:
-    storage: 1Gi
+    storage: 2Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain  # Ensure data is not deleted when PV is released
   storageClassName: standard
-  hostPath:
-    path: /mnt/data/mysql  # Update with the appropriate path for your EKS worker node
-    type: DirectoryOrCreate
+  awsElasticBlockStore:
+    volumeID: vol-0f66f4cefe3fc4d2c
+    fsType: ext4
