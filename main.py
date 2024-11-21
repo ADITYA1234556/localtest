@@ -72,7 +72,7 @@ def update_task(task_id):
 
 
 # DELETE task
-@app.route('/tasks/<int:task_id>', methods=['DELETE'])
+@app.route('/tasks/<int:task_id>', methods=['POST'])
 def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
     db.session.delete(task)

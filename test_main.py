@@ -83,10 +83,10 @@ def test_delete_task(client):
     db.session.commit()
 
     # Perform the POST request to delete the task
-    response = client.post(f'/tasks/{task.id}')
+    response = client.post(f'/tasks/{task.id}', follow_redirects=True)
 
     # Check the response
-    assert response.status_code == 302  # Should redirect to the home page
+    assert response.status_code == 200  # Should successfully render the home page
     # Verify the task was actually deleted from the database
     deleted_task = Task.query.get(task.id)
     assert deleted_task is None  # Task should no longer exist in the database
