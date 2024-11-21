@@ -32,9 +32,11 @@ def test_get_tasks(client):
 
     print(response.data.decode())
 
-    # Check if the task appears in the response
-    assert b"<h3>New Task 1</h3>" in response.data
-    # assert b"This is task 1" in response.data
+    # Check if the <h3> tag with the task title is within a <li> element
+    assert b"<li>" in response.data  # Ensure there's a <li> tag
+    assert b"<h3>New Task 1</h3>" in response.data  # Ensure the task title is in <h3>
+    # Optionally, check if <p> with the task description is also present
+    assert b"This is task 1" in response.data
 
 # Test POST /tasks (Create Task)
 def test_create_task(client):
