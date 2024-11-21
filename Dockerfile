@@ -19,7 +19,7 @@ COPY wait.sh /wait.sh
 RUN chmod +x /wait.sh
 
 # Copy the rest of the application code into the container
-COPY main.py .
+COPY . /app
 RUN ls -l /app
 
 # Set environment variables for Flask
