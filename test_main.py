@@ -34,9 +34,9 @@ def test_get_tasks(client, mocker):
 
     # Check the response
     assert response.status_code == 200
-    # Check if the tasks are returned in the response (you may need to adapt this based on your HTML response)
-    assert b"New Task 1" in response.data
-    assert b"New Task 2" in response.data
+    # Check if the tasks are returned in the response (ensure titles are in <h3> tags)
+    assert b"<h3>New Task 1</h3>" in response.data
+    assert b"<h3>New Task 2</h3>" in response.data
 
 # Test POST /tasks (Create Task)
 def test_create_task(client):
