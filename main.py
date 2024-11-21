@@ -59,17 +59,16 @@ def get_task(task_id):
     return render_template("task_list.html", task=task)
 
 # UPDATE task
-@app.route('/tasks/<int:task_id>', methods=['PUT'])
+@app.route('/tasks/edit/<int:task_id>', methods=['GET','POST'])
 def update_task(task_id):
     task = Task.query.get_or_404(task_id)
-    task_data = request.get_json()  # Expecting JSON data
-
-    task.title = task_data.get('title', task.title)
-    task.description = task_data.get('description', task.description)
-    task.done = task_data.get('done', task.done)
-
-    db.session.commit()
-    return jsonify({'message': 'Task updated successfully'}), 200
+    if request.method == "POST":
+        task.title = request.form.get('title', task.title)
+        task.description = request.form.get('description', task.description)
+        task.done = bool(request.form.get('done', task.done))
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template("task_form.html", task=task)
 
 
 # DELETE task

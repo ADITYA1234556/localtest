@@ -38,7 +38,21 @@ def test_get_tasks(client, mocker):
     assert b"New Task 1" in response.data
     assert b"New Task 2" in response.data
 
-# Test PUT /tasks/<task_id> endpoint (Update Task)
+# Test POST /tasks (Create Task)
+def test_create_task(client):
+    task_data = {
+        'title': 'New Task',
+        'description': 'Description for new task'
+    }
+    response = client.post('/tasks', data=task_data)
+
+    # Check the response
+    assert response.status_code == 302  # Should redirect to home page
+    new_task = Task.query.filter_by(title='New Task').first()
+    assert new_task is not None
+    assert new_task.description == 'Description for new task'
+
+# Test POST /tasks/<task_id> (Update Task)
 def test_update_task(client):
     # Add a task to the in-memory database before the test
     task = Task(title="Old Task", description="Old description", done=False)
@@ -51,30 +65,28 @@ def test_update_task(client):
         'done': True
     }
 
-    # Perform the PUT request to update the task with ID 1
-    response = client.post(f'/tasks/{task.id}', json=updated_task_data)
+    # Perform the POST request to update the task
+    response = client.post(f'/tasks/edit/{task.id}', data=updated_task_data)
 
     # Check the response
-    assert response.status_code == 200  # Redirect to home page after update
+    assert response.status_code == 302  # Should redirect to home page after update
     updated_task = Task.query.get(task.id)
     assert updated_task.title == 'Updated Task'
     assert updated_task.description == 'Updated description'
     assert updated_task.done is True
 
-
-# Test DELETE /tasks/<task_id> endpoint (Delete Task)
+# Test POST /tasks/<task_id> (Delete Task)
 def test_delete_task(client):
     # Add a task to the in-memory database before the test
     task = Task(title="Task to delete", description="This task will be deleted", done=False)
     db.session.add(task)
     db.session.commit()
 
-    # Perform the DELETE request to delete the task with ID 1
-    response = client.delete(f'/tasks/{task.id}')
+    # Perform the POST request to delete the task
+    response = client.post(f'/tasks/{task.id}')
 
     # Check the response
-    assert response.status_code == 200  # Should redirect to the home page
+    assert response.status_code == 302  # Should redirect to the home page
     # Verify the task was actually deleted from the database
     deleted_task = Task.query.get(task.id)
     assert deleted_task is None  # Task should no longer exist in the database
-
