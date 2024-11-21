@@ -30,6 +30,8 @@ def test_get_tasks(client):
     # Now, request the tasks list page
     response = client.get('/tasks')
 
+    print(response.data.decode())
+
     # Check if the task appears in the response
     assert b"<h3>New Task 1</h3>" in response.data
     assert b"This is task 1" in response.data
