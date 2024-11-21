@@ -21,22 +21,22 @@ def client():
         db.session.remove()
         db.drop_all()
 # Test GET /tasks endpoint without hitting the real database
-# def test_get_tasks(client):
-#     # Add a task to the database
-#     task = Task(title="New Task 1", description="This is task 1", done=False)
-#     db.session.add(task)
-#     db.session.commit()
-#
-#     # Now, request the tasks list page
-#     response = client.get('/tasks')
-#
-#     print(response.data.decode())
-#
-#     # Check if the <h3> tag with the task title is within a <li> element
-#     assert b"<li>" in response.data  # Ensure there's a <li> tag
-#     assert b"<h3>New Task 1</h3>" in response.data  # Ensure the task title is in <h3>
-#     # Optionally, check if <p> with the task description is also present
-#     assert b"This is task 1" in response.data
+def test_get_tasks(client):
+    # Add a task to the database
+    task = Task(title="New Task 1", description="This is task 1", done=False)
+    db.session.add(task)
+    db.session.commit()
+
+    # Now, request the tasks list page
+    response = client.get('/')
+
+    print(response.data.decode())
+
+    # Check if the <h3> tag with the task title is within a <li> element
+    assert b"<li>" in response.data  # Ensure there's a <li> tag
+    assert b"<h3>New Task 1</h3>" in response.data  # Ensure the task title is in <h3>
+    # Optionally, check if <p> with the task description is also present
+    assert b"This is task 1" in response.data
 
 # Test POST /tasks (Create Task)
 def test_create_task(client):
