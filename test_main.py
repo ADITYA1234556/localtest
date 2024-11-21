@@ -32,6 +32,9 @@ def test_get_tasks(client, mocker):
     # Now perform the GET request
     response = client.get('/tasks')
 
+    # Print the raw HTML content for debugging
+    print(response.data.decode())  # Check what HTML is being returned
+
     # Check the response
     assert response.status_code == 200
     # Check if the tasks are returned in the response (ensure titles are in <h3> tags)
