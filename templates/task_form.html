@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="stylesheet" href="https://111-aditya-bucket.s3.eu-west-2.amazonaws.com/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>{% if task %}Edit{% else %}Create{% endif %} Task</h1>
+        <form method="POST">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="{{ task.title if task else '' }}" required>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description">{{ task.description if task else '' }}</textarea>
+            <label for="done">Done:</label>
+            <input type="checkbox" id="done" name="done" {% if task and task.done %}checked{% endif %}>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

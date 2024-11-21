@@ -1,0 +1,31 @@
+# Use an official Python image
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies for mysqlclient
+RUN apt-get update && apt-get install -y \
+    default-libmysqlclient-dev build-essential default-mysql-client netcat-openbsd && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install pytest pytest-mock pytest-docker
+
+# Set environment variables for pytest
+ENV FLASK_APP=http://flask-app:5000
+
+# Copy test files
+COPY . .
+COPY test_main.py .
+COPY --chmod=777 wait.sh /wait.sh
+
+
+# Make wait.sh executable
+RUN chmod +x wait.sh
+RUN ls -l /app
+
+# Default command to run the wait.sh script and then pytest
+CMD ["/wait.sh", "mysql-service:3306", "--", "pytest", "test_main.py", "-v", "--tb=short"]

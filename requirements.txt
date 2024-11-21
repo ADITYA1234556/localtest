@@ -1,0 +1,10 @@
+Flask==2.0.2
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.27
+mysqlclient==2.1.0
+pymysql==1.0.2  # Add this line if missing
+werkzeug==2.0.3
+pytest==7.1.3
+boto3==1.24.0  # Add boto3 for S3 integration
+Flask-Cors==3.1.1  # Optional, for cross-origin requests
+Flask-S3==0.1.1  # Optional, for serving static files from S3
