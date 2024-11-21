@@ -38,7 +38,7 @@ def create_task():
     if request.method == "POST":
         title = request.form.get("title")
         description = request.form.get("description")
-        done = request.form.get("done")
+        done = True if request.form.get("done") == "on" else False
         if not title:
             return render_template("task_form.html", error = "Title is required")
         new_task = Task(title=title, description=description, done=done)
