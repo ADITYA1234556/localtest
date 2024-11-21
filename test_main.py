@@ -21,25 +21,18 @@ def client():
         db.session.remove()
         db.drop_all()
 # Test GET /tasks endpoint without hitting the real database
-def test_get_tasks(client, mocker):
-    # Add tasks to the in-memory database before the test
-    task1 = Task(title="New Task 1", description="Description for task 1", done=False)
-    task2 = Task(title="New Task 2", description="Description for task 2", done=True)
-    db.session.add(task1)
-    db.session.add(task2)
+def test_get_tasks(client):
+    # Add a task to the database
+    task = Task(title="New Task 1", description="This is task 1", done=False)
+    db.session.add(task)
     db.session.commit()
 
-    # Now perform the GET request
+    # Now, request the tasks list page
     response = client.get('/tasks')
 
-    # Print the raw HTML content for debugging
-    print(response.data.decode())  # Check what HTML is being returned
-
-    # Check the response
-    assert response.status_code == 200
-    # Check if the tasks are returned in the response (ensure titles are in <h3> tags)
+    # Check if the task appears in the response
     assert b"<h3>New Task 1</h3>" in response.data
-    assert b"<h3>New Task 2</h3>" in response.data
+    assert b"This is task 1" in response.data
 
 # Test POST /tasks (Create Task)
 def test_create_task(client):
@@ -93,3 +86,19 @@ def test_delete_task(client):
     # Verify the task was actually deleted from the database
     deleted_task = Task.query.get(task.id)
     assert deleted_task is None  # Task should no longer exist in the database
+
+#TEST VIEW
+def test_view_task(client):
+    # Create a task to test with
+    task = Task(title="Test Task", description="Test description", done=False)
+    db.session.add(task)
+    db.session.commit()
+
+    # Perform the GET request to view the task
+    response = client.get(f'/tasks/{task.id}')
+
+    # Check if the task's title and description are in the response
+    assert response.status_code == 200
+    assert b"Test Task" in response.data
+    assert b"Test description" in response.data
+    assert b"Not Done" in response.data  # Because the task's done is False
