@@ -12,10 +12,10 @@ spec:
       labels:
         app: mysql
     spec:
-#      volumes:
-#        - name: mysql-storage
-#          persistentVolumeClaim:
-#            claimName: mysql-pvc
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
       containers:
       - name: mysql
         image: adityahub2255/mysql:$DOCKER_TAG
@@ -30,9 +30,18 @@ spec:
             value: admin
         ports:
         - containerPort: 3306
-#        volumeMounts:
-#          - name: mysql-storage
-#            mountPath: /var/lib/mysql
+        volumeMounts:
+          - name: mysql-storage
+            mountPath: /var/lib/mysql
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: mysql-data
+                    operator: In
+                    values:
+                      - "true"
 ---
 apiVersion: v1
 kind: Service
