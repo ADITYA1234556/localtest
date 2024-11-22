@@ -93,13 +93,66 @@ h1 {
     background-color: #1c7ed6; /* Darker blue on hover */
 }
 
+/* Form Container */
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Add spacing between form groups */
+    max-width: 500px; /* Limit the form's width */
+    margin: 0 auto; /* Center the form on the page */
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Add spacing between label and input */
+}
+
+/* Input and Textarea */
+input[type="text"],
+textarea {
+    width: 100%; /* Full width for inputs */
+    padding: 10px;
+    border: 1px solid #ccc; /* Add subtle border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Improve text size */
+    background-color: #2c2f33; /* Match with dark theme */
+    color: #e0e0e0; /* Light text for dark background */
+}
+
+textarea {
+    resize: vertical; /* Allow resizing vertically only */
+    min-height: 80px; /* Set a minimum height */
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+    transform: scale(1.2); /* Slightly larger checkbox */
+}
+
+/* Submit Button */
 .btn-success {
-    background-color: #28a745;
+    align-self: flex-start; /* Align button to the left */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745; /* Green button */
     color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .btn-success:hover {
-    background-color: #218838;
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Error Message */
+.error {
+    color: #ff6b6b; /* Red for error messages */
+    font-size: 14px;
+    margin-top: 10px;
 }
 
 .btn-warning {
