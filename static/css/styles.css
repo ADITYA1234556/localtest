@@ -1,7 +1,8 @@
 /* Base Styles */
 body {
     font-family: 'Poppins', sans-serif; /* Modern font */
-    background-color: #f0f2f5;
+    background-color: #181818; /* Dark background */
+    color: #e0e0e0; /* Light text */
     margin: 0;
     padding: 0;
 }
@@ -10,19 +11,19 @@ body {
     width: 80%;
     margin: 20px auto;
     padding: 30px;
-    background-color: #ffffff;
+    background-color: #242424; /* Dark container */
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
 }
 
 .container:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 /* Heading */
 h1 {
-    color: #333;
+    color: #f0f0f0; /* Lighter text color for headings */
     font-size: 2em;
     margin-bottom: 20px;
 }
@@ -35,28 +36,29 @@ h1 {
 }
 
 .task-list li {
-    background-color: #ffffff;
+    background-color: #2c2f33; /* Dark task items */
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
 }
 
 .task-list li:hover {
-    background-color: #f1f3f5;
+    background-color: #35393e; /* Slightly lighter hover color */
     transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .task-list li .status {
     font-style: italic;
-    color: #6c757d;
+    color: #b0b0b0; /* Light gray for the status text */
 }
 
 /* Buttons */
 .btn {
     padding: 10px 20px;
+    margin-bottom: 15px; /* Add consistent bottom spacing */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -65,13 +67,30 @@ h1 {
     transition: all 0.3s ease;
 }
 
+/* View Button */
+.btn-info {
+    background-color: #28a745; /* Green color */
+    color: white;
+    padding: 10px 20px; /* Same as other buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-info:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
 .btn-primary {
-    background-color: #007bff;
+    background-color: #1e90ff; /* Blue button */
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #1c7ed6; /* Darker blue on hover */
 }
 
 .btn-success {
@@ -94,24 +113,33 @@ h1 {
 
 /* Create New Task Button */
 .create-btn {
-    background-color: #007bff;
+    background-color: #1e90ff; /* Blue button */
     color: white;
     padding: 12px 25px;
     font-size: 16px;
     border-radius: 6px;
-    margin-bottom: 30px;
+    margin-bottom: 30px; /* Keeps space below consistent */
+    margin-top: 20px; /* Optional: Adds space above if needed */
     cursor: pointer;
+    display: inline-block; /* Prevents wrapping onto the next line */
+    text-align: center; /* Ensures button text stays centered */
 }
 
 .create-btn:hover {
-    background-color: #0056b3;
+    background-color: #1c7ed6; /* Darker blue on hover */
 }
 
 /* Status Badge */
 .status-badge {
     display: inline-block;
     padding: 5px 10px;
-    background-color: #e9ecef;
+    background-color: #444c56; /* Darker background for badge */
+    color: #e9ecef; /* Light text inside badge */
     border-radius: 15px;
     font-size: 12px;
+}
+
+/* Margin */
+.mb-30 {
+    margin-bottom: 30px;
 }

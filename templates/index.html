@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task List</title>
+    <title>Task Website</title>
     <link rel="stylesheet" href="https://111-aditya-bucket.s3.eu-west-2.amazonaws.com/styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Task List</h1>
         <!-- Create New Task Button -->
-        <a href="{{ url_for('create_task') }}" class="create-btn">Create New Task</a>
+        <a href="{{ url_for('create_task') }}" class="create-btn mb-30">Create New Task</a>
 
         <ul class="task-list">
             {% for task in tasks %}
