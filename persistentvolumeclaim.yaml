@@ -4,8 +4,8 @@ metadata:
   name: mysql-pvc
 spec:
   accessModes:
-    - ReadWriteOnce  # One node can access at a time
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi  # Must be equal to or less than the PV capacity
-  storageClassName: gp2  # Ensure this matches your PV storage class
+      storage: 1Gi
+  storageClassName: standard  # Matches your PV's storageClassName
