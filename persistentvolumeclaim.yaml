@@ -9,4 +9,3 @@ spec:
     requests:
       storage: 1Gi  # Must be equal to or less than the PV capacity
   storageClassName: standard  # Ensure this matches your PV storage class
-
