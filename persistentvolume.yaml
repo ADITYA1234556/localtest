@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain  # Ensure data is not deleted when PV is released
-  storageClassName: standard
+  storageClassName: gp2
   awsElasticBlockStore:
     volumeID: vol-0f66f4cefe3fc4d2c
     fsType: ext4
