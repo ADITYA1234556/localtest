@@ -1,36 +1,117 @@
+/* Base Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    background-color: #f0f2f5;
     margin: 0;
     padding: 0;
 }
+
 .container {
     width: 80%;
     margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
+
+.container:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
 h1 {
     color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
 }
+
+/* Task List */
 .task-list {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
+
 .task-list li {
-    background-color: #e9ecef;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
+
+.task-list li:hover {
+    background-color: #f1f3f5;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.task-list li .status {
+    font-style: italic;
+    color: #6c757d;
+}
+
+/* Buttons */
 .btn {
-    padding: 10px 15px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
-.btn-primary { background-color: #007bff; color: white; }
-.btn-success { background-color: #28a745; color: white; }
-.btn-warning { background-color: #ffc107; color: white; }
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* Create New Task Button */
+.create-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.create-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #e9ecef;
+    border-radius: 15px;
+    font-size: 12px;
+}

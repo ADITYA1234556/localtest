@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task List</title>
+    <title>Task Details</title>
     <link rel="stylesheet" href="https://111-aditya-bucket.s3.eu-west-2.amazonaws.com/styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>{{ task.title }}</h1>
-        <p>{{ task.description }}</p>
-        <p>Status: {{ 'Done' if task.done else 'Not Done' }}</p>
+        <!-- Task title -->
+        <h1 class="task-title">{{ task.title }}</h1>
+
+        <!-- Task description -->
+        <p class="task-description">{{ task.description }}</p>
+
+        <!-- Task status -->
+        <p class="task-status">Status: <span class="status-badge">{{ 'Done' if task.done else 'Not Done' }}</span></p>
+
+        <!-- Back to task list button -->
         <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Task List</a>
     </div>
 </body>

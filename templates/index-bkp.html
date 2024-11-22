@@ -9,23 +9,15 @@
 <body>
     <div class="container">
         <h1>Task List</h1>
-        <!-- Create New Task Button -->
-        <a href="{{ url_for('create_task') }}" class="create-btn">Create New Task</a>
-
+        <a href="{{ url_for('create_task') }}" class="btn btn-primary">Create New Task</a>
         <ul class="task-list">
             {% for task in tasks %}
             <li>
                 <h3>{{ task.title }}</h3>
                 <p>{{ task.description }}</p>
-                <p>Status: <span class="status-badge">{{ 'Done' if task.done else 'Not Done' }}</span></p>
-
-                <!-- View Task Button -->
+                <p>Status: {{ 'Done' if task.done else 'Not Done' }}</p>
                 <a href="{{ url_for('get_task', task_id=task.id) }}" class="btn btn-info">View</a>
-
-                <!-- Edit Task Button -->
                 <a href="{{ url_for('update_task', task_id=task.id) }}" class="btn btn-warning">Edit</a>
-
-                <!-- Delete Task Form -->
                 <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST" style="display:inline;">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
@@ -35,3 +27,4 @@
     </div>
 </body>
 </html>
+
