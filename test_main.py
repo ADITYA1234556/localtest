@@ -83,7 +83,8 @@ def test_delete_task(client):
     db.session.commit()
 
     # Perform the POST request to delete the task
-    response = client.post(f'/tasks/{task.id}', follow_redirects=True)
+    response = client.post(f'/tasks/{task.id}?appkey=websitesecret', follow_redirects=True)
+    #response = client.post(f'/tasks/{task.id}', follow_redirects=True)
 
     # Check the response
     assert response.status_code == 200  # Should successfully render the home page
